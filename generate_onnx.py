@@ -30,6 +30,7 @@ import os
 from datetime import datetime
 import onnx
 import onnx
+from models.dense_fuse.model import DenseFuse_net
 
 # from pipeline.fuse import Fuse
 from TarDAL.module.fuse.generator import Generator
@@ -49,7 +50,7 @@ def read_args(known=False):
     parser.add_argument('--cfg', default='TarDAL/config/default.yaml', help='config file path')
     parser.add_argument("--weights", type=str, default="TarDAL/weights/v1/tardal-dt.pth", help="model.pt path(s)")
     parser.add_argument('--batch', type = int, default= 1,  help = "batch size")
-    parser.add_argument('--model_name', choices=["tardal", "meta_fusion"], type = str, default= "tardal",  help = "Name of the image fusion model")
+    parser.add_argument('--model_name', choices=["tardal", "meta_fusion", "dense_fuse"], type = str, default= "tardal",  help = "Name of the image fusion model")
     opt = parser.parse_known_args()[0] if known else parser.parse_args()
     return opt
 
@@ -57,6 +58,7 @@ def load_tardal_weights(model, ckpt):
     """
     load PyTorch trained weights into the model in the inference mode.
     """
+    ckpt = ckpt if 'fuse' not in ckpt else ckpt['fuse']
     if 'use_eval' in ckpt:
         ckpt.pop('use_eval')
     model.load_state_dict(ckpt)
@@ -88,17 +90,6 @@ def load_tardal(weights, cfg):
     model.eval()
     return model
     
-def load_meta_fusion(model, weights):
-    model.eval()
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    if device == "cpu":
-        model.load_state_dict(torch.load(weights, map_location=torch.device("cpu")), strict=True)
-    else:
-        model.load_state_dict(torch.load(weights, map_location=None), strict=True)
-    return model
-
-
-
 class Pt2ONNX:
     """Export to ONNX from PyTorch"""
     def __init__(self, model, batch_size: int = 1,
@@ -133,12 +124,14 @@ class Pt2ONNX:
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)
         
-        file_name = model_name
+        file_name = model_name + '960x1280'
         f = Path(os.path.join(dir_name, file_name))
         f = str(f.with_suffix(".onnx"))
         ir, vi = self.create_dummpy_data()
         if model_name == "tardal":
             im = torch.cat((ir, vi), dim=1)
+        elif model_name == "dense_fuse":
+            im = (ir, vi)
         elif model_name == "meta_fusion":
             if torch.cuda.is_available():
                 im = torch.rand(1, 4, 384, 512)
@@ -151,11 +144,12 @@ class Pt2ONNX:
                         im, 
                         f, 
                         verbose= False, 
-                        input_names=["image"],
+                        input_names=["image"] if len(im) ==1 else ["ir", "vi"],
                         output_names=["fused"], 
                          dynamic_axes={                                 #   Keep the batch dimension dynamic
-                                    'input':  {0: 'batch_size'},         # Specify dynamic batch size for input
-                                    'output': {0: 'batch_size'}})         # Specify dynamic batch size for output
+                                    'image':  {0: 'batch_size'},         # Specify dynamic batch size for input
+                                    'fused': {0: 'batch_size'}} if len(im) ==1 else {"ir": {0: "batch_size"}, "vi": {0: "batch_size"}, "fused": {0: "batch_size"}},
+                         opset_version=11)         # Specify dynamic batch size for output
 
             
             # Checks
