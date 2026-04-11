@@ -12,7 +12,7 @@
 
 ---
 
-## 🚨 Background
+## Background
 
 Pakistan Railway is the country's most affordable means of public transport, carrying over **52.2 million passengers** annually and averaging **178,000 passengers per day** across 28 mail, express, and passenger train lines.
 
@@ -24,7 +24,7 @@ Traditional optical camera-based detection systems fail under adverse conditions
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 Saferail-AI combines **infrared (thermal)** and **optical (RGB)** camera feeds to overcome the limitations of single-modality vision:
 
@@ -37,20 +37,20 @@ Saferail-AI combines **infrared (thermal)** and **optical (RGB)** camera feeds t
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- 🌑 **All-weather, day/night operation** via infrared-optical sensor fusion
-- 🎯 **Real-time object detection** optimised for edge hardware
-- 📏 **Distance estimation** to quantify collision risk
-- 🛤️ **Track ROI segmentation** to eliminate false positives
-- ⚡ **TensorRT / INT8 quantisation** support for Jetson deployment
-- 📡 **RTSP stream support** for live camera feeds
-- 🔌 **Socket-based streaming** for remote MMI display
-- 📊 **ONNX export** for cross-platform model portability
+- **All-weather, day/night operation** via infrared-optical sensor fusion
+-  **Real-time object detection** optimised for edge hardware
+- **Distance estimation** to quantify collision risk
+- **Track ROI segmentation** to eliminate false positives
+-  **TensorRT / INT8 quantisation** support for Jetson deployment
+-  **RTSP stream support** for live camera feeds
+-  **Socket-based streaming** for remote MMI display
+-  **ONNX export** for cross-platform model portability
 
 ---
 
-## 🖥️ Hardware Requirements
+##  Hardware Requirements
 
 | Component | Specification |
 |-----------|--------------|
@@ -64,7 +64,7 @@ Saferail-AI combines **infrared (thermal)** and **optical (RGB)** camera feeds t
 
 ---
 
-## 🛠️ Installation
+##  Installation
 
 ### Prerequisites
 
@@ -161,7 +161,7 @@ python run_trt_inference.py --engine model.engine --source <video_path>
 
 
 
-## 📦 Model Weights
+## Model Weights
 
 Place pre-trained weights in the appropriate directories before running:
 
@@ -175,7 +175,7 @@ Refer to each module's documentation or contact the maintainers for access to tr
 
 ---
 
-## 🔧 Deployment on NVIDIA Jetson Orin Nano
+##  Deployment on NVIDIA Jetson Orin Nano
 
 ### 1. Flash JetPack
 
