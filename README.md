@@ -1,4 +1,4 @@
-# 🚆 Saferail-AI
+# Saferail-AI
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-NVIDIA%20Jetson%20Orin%20Nano-green?style=for-the-badge&logo=nvidia" />
@@ -9,24 +9,6 @@
 </p>
 
 > **AI-powered railway level crossing safety system** using infrared-optical image fusion, real-time object detection, depth estimation, and ROI segmentation — built for Pakistan Railway.
-
----
-
-## 📖 Table of Contents
-
-- [Background](#-background)
-- [How It Works](#-how-it-works)
-- [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
-- [Hardware Requirements](#-hardware-requirements)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Configuration](#-configuration)
-- [Model Weights](#-model-weights)
-- [Deployment on Jetson](#-deployment-on-nvidia-jetson-orin-nano)
-- [Contributing](#-contributing)
-- [License](#-license)
 
 ---
 
@@ -65,32 +47,6 @@ Saferail-AI combines **infrared (thermal)** and **optical (RGB)** camera feeds t
 - 📡 **RTSP stream support** for live camera feeds
 - 🔌 **Socket-based streaming** for remote MMI display
 - 📊 **ONNX export** for cross-platform model portability
-
----
-
-## 🏗️ System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     Saferail-AI Pipeline                    │
-│                                                             │
-│  [RGB Camera] ──┐                                           │
-│                 ├──► [Image Fusion (TarDAL)] ──►            │
-│  [IR Camera]  ──┘         ↓                                 │
-│                    [Fused Frame]                             │
-│                         │                                   │
-│                         ▼                                   │
-│              [YOLOv5 Object Detection]                       │
-│                         │                                   │
-│              ┌──────────┴──────────┐                        │
-│              ▼                     ▼                        │
-│    [ROI Segmentation]    [Depth Estimation]                  │
-│              │                     │                        │
-│              └──────────┬──────────┘                        │
-│                         ▼                                   │
-│              [MMI Display + Driver Alert]                    │
-└─────────────────────────────────────────────────────────────┘
-```
 
 ---
 
@@ -201,61 +157,9 @@ python generate_onnx.py --weights detection_weights/weights/<model>.pt --output 
 python run_trt_inference.py --engine model.engine --source <video_path>
 ```
 
----
 
-## 📁 Project Structure
 
-```
-Saferail-AI/
-│
-├── app.py                     # Basic application entry point
-├── app_final.py               # Main production application
-├── app_final_rtsp.py          # RTSP stream variant
-├── app_socket_final.py        # Socket-based streaming variant
-├── track_roi.py               # ROI-based object tracking
-├── generate_onnx.py           # ONNX model export utility
-├── run_trt_inference.py       # TensorRT inference runner
-├── utils.py                   # Shared utility functions
-├── requirements.txt           # Python dependencies
-│
-├── configs/                   # YAML configuration files
-├── fusion/                    # Image fusion module
-├── TarDAL/                    # Submodule: IR-optical fusion network
-├── detection_segmentation/    # Object detection & segmentation scripts
-├── detection_weights/
-│   └── weights/               # YOLOv5 detection model weights
-├── segmentation_weights/
-│   └── pt_weights/            # Segmentation model weights
-├── int8_calibration/          # INT8 quantisation calibration data
-├── registration_data/         # Camera registration / calibration data
-├── JetsonYolov5               # Jetson-optimised YOLOv5 deployment
-├── scripts/                   # Helper and setup scripts
-└── videos/                    # Sample test videos
-```
 
----
-
-## ⚙️ Configuration
-
-All configurable parameters live in the `configs/` directory as YAML files. Key settings include:
-
-| Parameter | Description |
-|-----------|-------------|
-| `detection.conf_threshold` | Minimum confidence score for object detection |
-| `detection.iou_threshold` | IoU threshold for NMS |
-| `fusion.weights` | Path to TarDAL fusion model weights |
-| `camera.rgb_source` | RGB camera index or RTSP URL |
-| `camera.ir_source` | Infrared camera index or RTSP URL |
-| `depth.model` | Depth estimation model selection |
-| `roi.polygon` | Track ROI polygon coordinates |
-
-Edit the relevant config file before running:
-
-```bash
-nano configs/saferail_config.yaml
-```
-
----
 
 ## 📦 Model Weights
 
