@@ -1,7 +1,11 @@
+import os
+
+
 class Config:
-    # RTSP URLS
-    RTSP_URL_OPTICAL = 'rtsp://admin:hik*1245@10.19.30.100:554/Streaming/Channels/101'
-    RTSP_URL_THERMAL = 'rtsp://admin:hik*1245@10.19.30.100:554/Streaming/Channels/201'
+    # RTSP URLs: set these via environment variables, or replace the placeholders locally.
+    # Never commit real camera credentials.
+    RTSP_URL_OPTICAL = os.getenv('RTSP_URL_OPTICAL', 'rtsp://<username>:<password>@<camera-ip>:554/Streaming/Channels/101')
+    RTSP_URL_THERMAL = os.getenv('RTSP_URL_THERMAL', 'rtsp://<username>:<password>@<camera-ip>:554/Streaming/Channels/201')
     
     # RTSP_URL_OPTICAL = 'videos/infer_visible2.mp4'
     # RTSP_URL_THERMAL = 'videos/infer_thermal2.mp4'
