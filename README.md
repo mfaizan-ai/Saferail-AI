@@ -40,10 +40,10 @@ Saferail-AI running live on the optical (left) and thermal (right) streams: the 
 
 <p align="center">
   <a href="assets/saferail_project_demo.mp4">
-    <img src="assets/saferail_demo_preview.png" alt="Saferail-AI demo: track segmentation and intrusion detection on optical and thermal streams" width="100%">
+    <img src="assets/saferail_demo.gif" alt="Saferail-AI demo: track segmentation and intrusion detection on optical and thermal streams" width="100%">
   </a>
   <br>
-  <sub>▶️ Click the image to watch the full demo video.</sub>
+  <sub>▶️ Click the animation to open the full-quality demo video.</sub>
 </p>
 
 ---
