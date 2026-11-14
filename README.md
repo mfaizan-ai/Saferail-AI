@@ -11,7 +11,7 @@
 [![Status](https://img.shields.io/badge/Status-Research%20prototype-orange?style=flat-square)](#project-status-and-limitations)
 [![Paper](https://img.shields.io/badge/Paper-Under%20review%20(Information%20Fusion)-blue?style=flat-square)](#publication)
 
-[Overview](#overview) · [How it works](#how-it-works) · [Repository guide](#repository-guide) · [Getting started](#getting-started) · [Usage](#-usage) · [Model export](#model-export-and-tensorrt) · [Limitations](#project-status-and-limitations) · [Roadmap](#roadmap) · [Publication](#publication)
+[Overview](#overview) · [Demo](#demo) · [How it works](#how-it-works) · [Repository guide](#repository-guide) · [Getting started](#getting-started) · [Usage](#-usage) · [Model export](#model-export-and-tensorrt) · [Limitations](#project-status-and-limitations) · [Roadmap](#roadmap) · [Publication](#publication)
 
 </div>
 
@@ -31,6 +31,16 @@ Level crossings and track corridors are hard to monitor at night and in poor wea
 - 🌡️ **Dual-stream processing**: the RGB and thermal frames are processed together as one batch of two, so the scene is covered in both modalities.
 - 🔀 **Image fusion (experimental)**: an alternative path aligns the thermal frame to the RGB frame with a homography and fuses them with [TarDAL](https://github.com/faizan1234567/TarDAL) before detection.
 - ⚡ **Edge deployment**: FP16/INT8 TensorRT engines, RTSP camera input and socket streaming of results.
+
+---
+
+## Demo
+
+Saferail-AI running on paired RGB and thermal streams: track segmentation, the track occupancy region and object detection.
+
+<video src="assets/saferail_project_demo.mp4" controls muted width="100%"></video>
+
+If the player doesn't load, [download the demo video](assets/saferail_project_demo.mp4).
 
 ---
 
