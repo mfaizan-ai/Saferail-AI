@@ -36,11 +36,15 @@ Level crossings and track corridors are hard to monitor at night and in poor wea
 
 ## Demo
 
-Saferail-AI running on paired RGB and thermal streams: track segmentation, the track occupancy region and object detection.
+Saferail-AI running live on the optical (left) and thermal (right) streams: the track region is segmented in green, and a person on the track is flagged as an intrusion.
 
-<video src="assets/saferail_project_demo.mp4" controls muted width="100%"></video>
-
-If the player doesn't load, [download the demo video](assets/saferail_project_demo.mp4).
+<p align="center">
+  <a href="assets/saferail_project_demo.mp4">
+    <img src="assets/saferail_demo_preview.png" alt="Saferail-AI demo: track segmentation and intrusion detection on optical and thermal streams" width="100%">
+  </a>
+  <br>
+  <sub>▶️ Click the image to watch the full demo video.</sub>
+</p>
 
 ---
 
